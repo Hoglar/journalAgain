@@ -28,6 +28,4 @@ void statusOnStartup()
 	{
 		createNewUser();
 	}
-
-	
 }
