@@ -363,5 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Ignored by me
-.data.json
-.json.hpp
+data.json
+json.hpp
