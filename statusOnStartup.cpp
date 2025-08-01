@@ -1,14 +1,17 @@
 #include <iostream>
 #include <string_view>
 #include "statusOnStartup.h"
+#include "user.h";
+
+// For tid
+// Lage en egen funksjon som henter tid?
 
 
 // En funksjon som henter navn, dette være fra database eller en løsning som er enklere. 
 // Den returner så dette navnet. Enkelt og greit. 
-std::string_view getUsername() 
-{
-	return "Martin";
-}
+
+
+
 
 
 // Denne funksjonen skal kjøre på startup. det skal vise litt detaljer om navn på eier, dagens dato. 
@@ -17,6 +20,14 @@ std::string_view getUsername()
 // Lurer på om jeg kan gjøre noe med skrift farger og sånnt.
 void statusOnStartup()
 {
-	// Får navn fra 
-	std::cout << getUsername() << '\n';
+	if (checkUser())
+	{
+		std::cout << "Good day! " << getUser() << '.' << '\n';
+	}
+	else
+	{
+		createNewUser();
+	}
+
+	
 }
