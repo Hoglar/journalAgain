@@ -8,58 +8,45 @@
 
 using json = nlohmann::json;
 
-// createUser
-	//Lage fil men struktur ? JSON?
+// createNewUser
+// Tar en referanse til en streng. eller da navn som er gitt av user. 
+// Lager en json med denne. 
 
-void createNewUser()
+void createNewUser(const std::string& name)
 {
+	json data;
+	data["name"] = name;
 
-	//Henter først navn
-
-	std::cout << "Looks like you dont have an User yett. Do you want to make one? y/n: ";
-	char ans{};
-	std::cin >> ans;
-
-
-	if (ans == 'y')
+	std::ofstream toFile("data.json");
+	if (!toFile.is_open())
 	{
-
-
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		//proceed
-		std::cout << "Whats your name? ";
-		std::string name{};
-		std::getline(std::cin, name);
-
-		// Så lage json data for bruker.
-		json data;
-		data["navn"] = name;
-
-		// Så lagre til fil
-		std::ofstream utfil("data.json");
-		utfil << data.dump(4);
-		utfil.close();
-	}
-	else
-	{
-		std::cout << "Exiting program, try to find out about file.";
+		std::cerr << "Error: Could not open file for writing.\n";
 		std::exit(1);
 	}
 
+	toFile << data.dump(4);
+	if (toFile.fail())
+	{
+		std::cerr << "Error: Failed to write to file.\n";
+	}
+	toFile.close();
 }
 
-// Checkfil i egen, det er ryddigere
-
-bool checkUser()
+// userExists
+// Veldig enkel funksjon. sjekker om jeg får åpnet data.json, om ikke finnes den ikke og jeg må lage. 
+bool userExists()
 {
-	std::ifstream infil("data.json");
-	if (!infil.is_open()) 
+	std::ifstream fromFile("data.json");
+	if (!fromFile.is_open()) 
 	{
-		std::cerr << "data.json does not exist or could not be opened!" << '\n';
+		
 		return false;
 	}
-	
-	return true;
+	else
+	{
+		return true;
+	}
+
 }
 
 // getUser
@@ -67,12 +54,19 @@ bool checkUser()
 
 
 // Må altså forbedres
+
 std::string getUser()
 {
+	// Først åpner vi filen
 	std::ifstream infil("data.json");
+	if (!infil.is_open())
+	{
+		std::cerr << "Could not open data.json\n";
+		return "";
+	}
 	json data;
 	infil >> data;
 	infil.close();
 
-	return data["navn"];
+	return data["name"];
 }

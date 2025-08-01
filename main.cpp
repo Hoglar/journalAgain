@@ -1,8 +1,8 @@
 // Prøver igjen
 
-#include "statusOnStartup.h"
+#include "startup.h"
 
 int main()
 {
-	statusOnStartup();
+	startup();
 }

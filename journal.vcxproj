@@ -125,13 +125,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="statusOnStartup.cpp" />
+    <ClCompile Include="startup.cpp" />
     <ClCompile Include="time.cpp" />
     <ClCompile Include="user.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="json.hpp" />
-    <ClInclude Include="statusOnStartup.h" />
+    <ClInclude Include="startup.h" />
     <ClInclude Include="time.h" />
     <ClInclude Include="user.h" />
   </ItemGroup>
