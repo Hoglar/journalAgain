@@ -40,6 +40,7 @@ void startup()
 	
 	// Fortsett program
 	std::cout << "Good day, " << getUser() << "!\n";
-	// Er klar for å finne mere status
+
+	// Er klar for å finne mere statuss
 
 }
