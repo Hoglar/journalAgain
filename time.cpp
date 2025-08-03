@@ -22,3 +22,10 @@ std::string getTodayDate()
 
 	return oss.str();
 }
+
+// Trenger og å kunne hente tid nå som timestamp.
+std::time_t creationTimestamp()
+{
+	std::time_t now = std::time(nullptr);
+	return now;
+}
