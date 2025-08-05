@@ -4,7 +4,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-// Access to jso
+// Access to json
 #include "json.hpp"
 #include "checklist.h"
 #include "time.h"
@@ -69,13 +69,108 @@ ChecklistItem inputChecklist()
 	item.creationTimestamp = creationTimestamp();
 	// Tracker
 	item.completedDays = 0;
+	// Til senere, kan ha en array med refleksjoner rundt hvorfor jeg faila. 
+
 
 	return item;
 }
 
 
 // Read
+	// View current items and some status on them
+	// en funksjon, som printer ut alle checklist items med counter på alle. 
+	// Kunne laget en som viser mere detaljer.
+void displayChecklist()
+{
+	// Hva må vi gjøre her?
+	// Vi må hvertfal kjøre en read, så åpne en kanal først
+	// åpne kanal
+		// Hva så? iterere over allet itemsene inne i checklist.
+			//Printe ut titel og score på en grei måte.
+	std::ifstream innData("data.json");
+	if (!innData.is_open())
+	{
+		std::cerr << "Error: Could not open data.json.\n";
+		std::exit(1);
+	}
+
+	json data{};
+	innData >> data;
+	innData.close();
+
+	std::cout << "Checklist:" << "\n\n";
+	for (const auto& item : data["checklist"]) {
+		std::cout << item["title"].get<std::string>() << " - ";
+		std::cout << "Completed days: " << item["completed_days"] << "\n\n";
+	}
+	 
+}
+// three functions, one for iteration ans questions, then one for update and one for restart. 
 
 // Update
+// 
 
+
+void restartCounter(json& item) 
+{
+	item["creation_timestamp"] = creationTimestamp();
+	item["completed_days"] = 0;
+
+	std::cout << "Checklist restart, better luck next time\n\n";
+
+}
+
+void updateCounter(json& item)
+{
+	item["completed_days"] = (creationTimestamp() - item["creation_timestamp"]) / 86400;
+
+}
+
+void checkOffList()
+{
+	std::cout << "Going through checklist. Answer y/n on wheather your are going strong:\n\n";
+
+	std::ifstream innData("data.json");
+	if (!innData.is_open())
+	{
+		std::cerr << "Error: Could not open data.json\n";
+		std::exit(1);
+	}
+
+	json data{};
+	innData >> data;
+	innData.close();
+
+	for (auto& item : data["checklist"]) {
+		std::cout << item["title"].get<std::string>() << ": ";
+
+		char ans{};
+		std::cin >> ans;
+
+		// Fikse det at ikke bare kan entere
+		if (ans == 'n')
+		{
+			restartCounter(item);
+			// Restart counter
+			// Endre timestamp og counter
+		}
+		else 
+		{
+			// Update counter
+			updateCounter(item);
+		}
+	}
+
+	std::ofstream utData("data.json");
+	utData << data.dump(4);
+	utData.close();
+
+	std::cout << "Checklist updated!";
+
+}
+	// checkOffList()
+		// Needs some question and answer
+		// Then separate update one for restart and one for update counter
+		// 
 // Delete
+	//deleteChecklistItem(title?)

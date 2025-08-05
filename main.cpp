@@ -6,5 +6,5 @@
 int main()
 {
 	//startup();
-	createChecklist();
+	checkOffList();
 }

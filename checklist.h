@@ -13,3 +13,5 @@ struct ChecklistItem
 };
 
 void createChecklist();
+void displayChecklist();
+void checkOffList();
