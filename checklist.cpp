@@ -71,7 +71,6 @@ ChecklistItem inputChecklist()
 	item.completedDays = 0;
 	// Til senere, kan ha en array med refleksjoner rundt hvorfor jeg faila. 
 
-
 	return item;
 }
 
@@ -174,3 +173,37 @@ void checkOffList()
 		// 
 // Delete
 	//deleteChecklistItem(title?)
+	// Load up checklist, then delete one.
+
+
+void removeChecklistItem()
+{
+	std::ifstream inFile("data.json");
+	json data{};
+	inFile >> data;
+	inFile.close();
+
+	std::cout << "Going through checklist items, type y/n wheather you want to remove: \n\n";
+
+	for (size_t i = 0; i < data["checklist"].size(); ++i)
+	{
+		auto& item = data["checklist"][i];
+
+		std::cout << item["title"].get<std::string>() << ": ";
+
+		char ans{};
+		std::cin >> ans;
+		
+		if (ans == 'y')
+		{
+			data["checklist"].erase(data["checklist"].begin() + i);
+			--i;
+
+			std::cout << "Removed item from checklist!\n";
+		}
+	}
+
+	std::ofstream outData("data.json");
+	outData << data.dump(4);
+	outData.close();
+}

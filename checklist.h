@@ -15,3 +15,4 @@ struct ChecklistItem
 void createChecklist();
 void displayChecklist();
 void checkOffList();
+void removeChecklistItem();
