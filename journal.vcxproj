@@ -124,15 +124,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="journal.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="checklist.cpp" />
+    <ClCompile Include="menu.cpp" />
     <ClCompile Include="startup.cpp" />
     <ClCompile Include="time.cpp" />
     <ClCompile Include="user.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="checklist.h" />
+    <ClInclude Include="journal.h" />
     <ClInclude Include="json.hpp" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="startup.h" />
     <ClInclude Include="time.h" />
     <ClInclude Include="user.h" />

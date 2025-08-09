@@ -57,7 +57,7 @@ ChecklistItem inputChecklist()
 {
 
 	ChecklistItem item {};
-	
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	std::cout << "Checklist title: ";
 	std::getline(std::cin, item.title);
 	
